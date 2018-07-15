@@ -1,31 +1,8 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
-const Query = require('./resolvers/Query')
-const Mutation = require('./resolvers/Mutation')
-const AuthPayload = require('./resolvers/AuthPayload')
-const Subscription = require('./resolvers/Subscription')
-const Feed = require('./resolvers/Feed')
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
-const resolvers = {
-  Query,
-  Mutation,
-  AuthPayload,
-  Subscription,
-  Feed
-}
-
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'https://us1.prisma.sh/craig-blunden-315eb8/hackernews/dev',
-      secret: 'mysecret123',
-      debug: true,
-    }),
-  }),
-})
-
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
