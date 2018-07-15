@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/craig-blunden-315eb8/hackernews/dev
-# timestamp: Sun Jul 08 2018 21:56:21 GMT+1000 (AEST)
+# timestamp: Sun Jul 15 2018 20:09:03 GMT+1000 (AEST)
 
 type AggregateLink {
   count: Int!
@@ -18,8 +18,11 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 type Link implements Node {
   id: ID!
+  createdAt: DateTime!
   description: String!
   url: String!
   postedBy(where: UserWhereInput): User
@@ -77,18 +80,19 @@ type LinkEdge {
 enum LinkOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
   description_ASC
   description_DESC
   url_ASC
   url_DESC
   updatedAt_ASC
   updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type LinkPreviousValues {
   id: ID!
+  createdAt: DateTime!
   description: String!
   url: String!
 }
@@ -233,6 +237,28 @@ input LinkWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   description: String
 
   """All values that are not equal to given value."""

@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "npm-run-all --parallel start playground",
+    "playground": "graphql playground --port 5000",
+    "prisma": "prisma",
+    "graphql": "graphql"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +20,8 @@
     "prisma-binding": "^2.1.0"
   },
   "devDependencies": {
-    "dotenv": "^5.0.1"
+    "dotenv": "^5.0.1",
+    "npm-run-all": "^4.1.3",
+    "prisma": "^1.9.0"
   }
 }

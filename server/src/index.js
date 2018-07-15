@@ -6,6 +6,8 @@ const AuthPayload = require('./resolvers/AuthPayload')
 const Subscription = require('./resolvers/Subscription')
 const Feed = require('./resolvers/Feed')
 
+require('dotenv').config()
+
 const resolvers = {
   Query,
   Mutation,
@@ -22,7 +24,7 @@ const server = new GraphQLServer({
     db: new Prisma({
       typeDefs: 'src/generated/prisma.graphql',
       endpoint: 'https://us1.prisma.sh/craig-blunden-315eb8/hackernews/dev',
-      secret: 'mysecret123',
+      secret: process.env.PRISMA_SECRET,
       debug: true,
     }),
   }),
