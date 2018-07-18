@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
 function post(parent, args, context, info) {
-  const userId = getUserId(context)
+  const userId = getUserId(context) || "123"
   return context.db.mutation.createLink(
     {
       data: {
