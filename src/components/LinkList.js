@@ -29,7 +29,7 @@ class LinkList extends Component {
 
     return (
       <div>
-        <div className="row">
+        <div className="row card-deck">
           {linksToRender.map((link, index) => (
             <Link
               key={link.id}
