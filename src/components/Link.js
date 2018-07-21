@@ -9,25 +9,25 @@ class Link extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="flex mt2 items-start">
-        <div className="flex items-center">
-          <span className="gray">{this.props.index + 1}.</span>
-          {authToken && (
-            <div className="ml1 gray f11" onClick={() => this._voteForLink()}>
-              ▲
+      <div className="col-sm-6">
+        <div className="card">
+          <div className="card-body">
+            <div className="card-title"><h3>{this.props.index + 1}.</h3></div>
+            <div className="card-text">
+              {this.props.link.description} ({this.props.link.url})
             </div>
-          )}
-        </div>
-        <div className="ml1">
-          <div>
-            {this.props.link.description} ({this.props.link.url})
-          </div>
-          <div className="f6 lh-copy gray">
-            {this.props.link.votes.length} votes | by{' '}
-            {this.props.link.postedBy
-              ? this.props.link.postedBy.name
-              : 'Unknown'}{' '}
-            {timeDifferenceForDate(this.props.link.createdAt)}
+            <div className="">
+              {this.props.link.votes.length} votes | by{' '}
+              {this.props.link.postedBy
+                ? this.props.link.postedBy.name
+                : 'Unknown'}{' '}
+              {timeDifferenceForDate(this.props.link.createdAt)}
+            </div>
+            {authToken && (
+              <button className="btn btn-primary" onClick={() => this._voteForLink()}>
+                ▲
+              </button>
+            )}
           </div>
         </div>
       </div>

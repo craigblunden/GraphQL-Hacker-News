@@ -29,7 +29,7 @@ class LinkList extends Component {
 
     return (
       <div>
-        <div>
+        <div className="row">
           {linksToRender.map((link, index) => (
             <Link
               key={link.id}
@@ -40,7 +40,7 @@ class LinkList extends Component {
           ))}
         </div>
       {isNewPage &&
-        <div className='flex ml4 mv3 gray'>
+        <div className='row'>
           <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
           <div className='pointer' onClick={() => this._nextPage()}>Next</div>
         </div>
