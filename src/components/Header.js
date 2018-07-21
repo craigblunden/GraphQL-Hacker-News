@@ -7,42 +7,47 @@ class Header extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="flex pa1 justify-between nowrap orange">
-        <div className="flex flex-fixed black">
-          <div className="fw7 mr1">Hacker News</div>
-          <Link to="/" className="ml1 no-underline black">
-            new
-          </Link>
-          <Link to="/top" className="ml1 no-underline black">
-            top
-          </Link>
-          <Link to="/search" className="ml1 no-underline black">
-            search
-          </Link>
+      <div className="row">
+        <div className="">
+          <div className=""><h1>Hacker News</h1></div>
+          <ul className="nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">new</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/top" className="nav-link">top</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/search" className="nav-link">search</Link>
+            </li>
           {authToken && (
-            <div className="flex">
-              <div className="ml1">|</div>
-              <Link to="/create" className="ml1 no-underline black">
-                submit
-              </Link>
-            </div>
+            <li className="nav-item">
+              <Link to="/create" className="nav-link">submit</Link>
+            </li>
           )}
+          </ul>
         </div>
-        <div className="flex flex-fixed">
+        <div className="">
           {authToken ? (
-            <div
-              className="ml1 pointer black"
-              onClick={() => {
-                localStorage.removeItem(AUTH_TOKEN)
-                this.props.history.push(`/`)
-              }}
-            >
-              logout
-            </div>
+            <ul className="nav">
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  onClick={() => {
+                    localStorage.removeItem(AUTH_TOKEN)
+                    this.props.history.push(`/`)
+                  }}
+                >
+                  logout
+                </a>
+              </li>
+            </ul>
           ) : (
-            <Link to="/login" className="ml1 no-underline black">
-              login
-            </Link>
+            <ul className="nav">
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">login</Link>
+              </li>
+            </ul>
           )}
         </div>
       </div>
