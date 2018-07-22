@@ -7,29 +7,27 @@ class Header extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="row">
-        <div className="">
-          <div className=""><h1>Hacker News</h1></div>
-          <ul className="nav">
-            <li className="nav-item">
-              <Link to="/" className="nav-link">new</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/top" className="nav-link">top</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/search" className="nav-link">search</Link>
-            </li>
-          {authToken && (
-            <li className="nav-item">
-              <Link to="/create" className="nav-link">submit</Link>
-            </li>
-          )}
-          </ul>
-        </div>
-        <div className="">
-          {authToken ? (
+      <div className="container">
+        <div className="row">
+          <div className="col col-12">
+            <h1>Hacker News</h1>
             <ul className="nav">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">new</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/top" className="nav-link">top</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/search" className="nav-link">search</Link>
+              </li>
+            {authToken && (
+              <li className="nav-item">
+                <Link to="/create" className="nav-link">submit</Link>
+              </li>
+            )}
+            
+            {authToken ? (
               <li className="nav-item">
                 <a
                   className="nav-link"
@@ -41,14 +39,13 @@ class Header extends Component {
                   logout
                 </a>
               </li>
-            </ul>
-          ) : (
-            <ul className="nav">
+            ) : (
               <li className="nav-item">
                 <Link to="/login" className="nav-link">login</Link>
               </li>
+            )}
             </ul>
-          )}
+          </div>
         </div>
       </div>
     )

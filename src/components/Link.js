@@ -9,29 +9,31 @@ class Link extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="card">
-        <div className="card-body">
-          <div className="card-title"><h3>{this.props.index + 1}.</h3></div>
-          <div className="card-text">
-            <div>
-              {this.props.link.description}
+      <div class="col col-12 col-sm-6 col-md-4">
+        <div className="card mb-4">
+          <div className="card-body">
+            <div className="card-title"><h3>{this.props.index + 1}.</h3></div>
+            <div className="card-text">
+              <div>
+                {this.props.link.description}
+              </div>
+              <div>
+                ({this.props.link.url})
+              </div>
             </div>
-            <div>
-               ({this.props.link.url})
+            <div className="">
+              {this.props.link.votes.length} votes | by{' '}
+              {this.props.link.postedBy
+                ? this.props.link.postedBy.name
+                : 'Unknown'}{' '}
+              {timeDifferenceForDate(this.props.link.createdAt)}
             </div>
+            {authToken && (
+              <button className="btn btn-primary" onClick={() => this._voteForLink()}>
+                ▲
+              </button>
+            )}
           </div>
-          <div className="">
-            {this.props.link.votes.length} votes | by{' '}
-            {this.props.link.postedBy
-              ? this.props.link.postedBy.name
-              : 'Unknown'}{' '}
-            {timeDifferenceForDate(this.props.link.createdAt)}
-          </div>
-          {authToken && (
-            <button className="btn btn-primary" onClick={() => this._voteForLink()}>
-              ▲
-            </button>
-          )}
         </div>
       </div>
     )

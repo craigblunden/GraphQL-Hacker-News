@@ -13,7 +13,7 @@ class CreateLink extends Component {
   render() {
     return (
       <div>
-        <div className="flex flex-column mt3">
+        <div className="">
           <input
             className="mb2"
             value={this.state.description}

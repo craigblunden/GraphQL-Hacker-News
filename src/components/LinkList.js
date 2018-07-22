@@ -28,8 +28,8 @@ class LinkList extends Component {
     const page = parseInt(this.props.match.params.page, 10)
 
     return (
-      <div>
-        <div className="row card-deck">
+      <div className="container">
+        <div className="row">
           {linksToRender.map((link, index) => (
             <Link
               key={link.id}
