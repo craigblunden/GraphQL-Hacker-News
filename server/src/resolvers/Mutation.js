@@ -67,9 +67,22 @@ async function vote(parent, args, context, info) {
   )
 }
 
+async function deleteVote(parent, args, context, info){
+
+  return context.db.mutation.deleteVote(
+    {
+      where: {
+        id: args.where.id
+      }
+    },
+      info
+  )
+}
+
 module.exports = {
     signup,
     login,
     post,
     vote,
+    deleteVote,
 }

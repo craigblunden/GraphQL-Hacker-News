@@ -40,10 +40,12 @@ class LinkList extends Component {
           ))}
         </div>
       {isNewPage &&
-        <div className='row'>
-          <div className='pointer mr2' onClick={() => this._previousPage()}>Previous</div>
-          <div className='pointer' onClick={() => this._nextPage()}>Next</div>
-        </div>
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item"><button className="page-link" onClick={() => this._previousPage()}>Previous</button></li>
+            <li className="page-item"><button className="page-link" onClick={() => this._nextPage()}>Next</button></li>
+          </ul>
+        </nav>
       }
     </div>
     )
@@ -79,7 +81,7 @@ class LinkList extends Component {
               votes {
                 id
                 user {
-                  id
+                  id,
                 }
               }
             }
@@ -170,11 +172,13 @@ export const FEED_QUERY = gql`
         postedBy {
           id
           name
+          email
         }
         votes {
           id
           user {
             id
+            email
           }
         }
       }

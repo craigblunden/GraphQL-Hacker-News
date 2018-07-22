@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import { AUTH_TOKEN } from '../constants'
 import { timeDifferenceForDate } from '../utils'
 
 class Link extends Component {
+  state = {
+    hasVote: false,
+  }
+
+  componentDidMount = () => {
+    this._hasVoted();
+  }
+
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN)
+    const { hasVote } = this.state
     return (
-      <div class="col col-12 col-sm-6 col-md-4">
+      <div className="col col-12 col-sm-6 col-md-4">
         <div className="card mb-4">
           <div className="card-body">
             <div className="card-title"><h3>{this.props.index + 1}.</h3></div>
@@ -28,15 +36,36 @@ class Link extends Component {
                 : 'Unknown'}{' '}
               {timeDifferenceForDate(this.props.link.createdAt)}
             </div>
-            {authToken && (
-              <button className="btn btn-primary" onClick={() => this._voteForLink()}>
-                ▲
-              </button>
-            )}
+            {hasVote
+              ? (
+                  <button className="btn btn-primary" onClick={() => this._removeVoteForLink()}>
+                    Down
+                  </button>
+                )
+              : (
+                <button className="btn btn-warning" onClick={() => this._voteForLink()}>
+                  Up
+                </button>
+                )
+              }
           </div>
         </div>
       </div>
     )
+  }
+
+  _hasVoted = () => {
+    const authToken = localStorage.getItem(AUTH_TOKEN)
+    const votes = this.props.link.votes
+    const loggedinUserEmail = localStorage.getItem('email')
+
+    votes.forEach(vote => {
+      if (vote.user.email === loggedinUserEmail){
+        this.setState({
+          "hasVote": true
+        })
+      } 
+    })
   }
 
   _voteForLink = async () => {
@@ -47,6 +76,26 @@ class Link extends Component {
       },
       update: (store, { data: { vote } }) => {
         this.props.updateStoreAfterVote(store, vote, linkId)
+        this.setState({
+          "hasVote": true
+        })
+      },
+    })
+  }
+
+  _removeVoteForLink = async () => {
+    const votes = this.props.link.votes
+    const loggedinUserEmail = localStorage.getItem('email')
+    let linkId = ""
+    votes.forEach(vote => {
+      if (vote.user.email === loggedinUserEmail){
+        linkId = vote.id
+      } 
+    })
+    
+    await this.props.removeVoteMutation({
+      variables: {
+        linkId,
       },
     })
   }
@@ -71,6 +120,17 @@ const VOTE_MUTATION = gql`
   }
 `
 
-export default graphql(VOTE_MUTATION, {
-  name: 'voteMutation',
-})(Link)
+const REMOVE_VOTE_MUTATION = gql`
+  mutation RemoveVoteMutation($linkId: ID!) {
+    deleteVote( where:{
+      id: $linkId
+    }){
+      id
+    }
+  }
+`
+
+export default compose(
+  graphql(VOTE_MUTATION, {name: 'voteMutation'}),
+  graphql(REMOVE_VOTE_MUTATION, {name: 'removeVoteMutation'}),
+)(Link)

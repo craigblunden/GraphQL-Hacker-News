@@ -65,7 +65,7 @@ class Login extends Component {
         },
       })
       const { token } = result.data.login
-      this._saveUserData(token)
+      this._saveUserData(token, email)
     } else {
       const result = await this.props.signupMutation({
         variables: {
@@ -75,13 +75,14 @@ class Login extends Component {
         },
       })
       const { token } = result.data.signup
-      this._saveUserData(token)
+      this._saveUserData(token, email)
     }
     this.props.history.push(`/`)
   }
 
-  _saveUserData = token => {
+  _saveUserData = (token, email) => {
     localStorage.setItem(AUTH_TOKEN, token)
+    localStorage.setItem('email', email)
   }
 }
 
