@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { FEED_QUERY } from './LinkList'
+import { FEED_QUERY } from './PostList'
 import { LINKS_PER_PAGE } from '../constants'
 
-class CreateLink extends Component {
+class CreatePost extends Component {
   state = {
     description: '',
     url: '',
@@ -29,12 +29,12 @@ class CreateLink extends Component {
             placeholder="The URL for the link"
           />
         </div>
-        <button onClick={() => this._createLink()}>Submit</button>
+        <button onClick={() => this._createPost()}>Submit</button>
       </div>
     )
   }
 
-  _createLink = async () => {
+  _createPost = async () => {
     const { description, url } = this.state
     await this.props.postMutation({
       variables: {
@@ -74,4 +74,4 @@ const POST_MUTATION = gql`
   }
 `
 
-export default graphql(POST_MUTATION, { name: 'postMutation' })(CreateLink)
+export default graphql(POST_MUTATION, { name: 'postMutation' })(CreatePost)

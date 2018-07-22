@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
-import Link from './Link'
+import Post from './Post'
 
 class Search extends Component {
 
@@ -25,7 +25,7 @@ class Search extends Component {
             OK
           </button>
         </div>
-        {this.state.links.map((link, index) => <Link key={link.id} link={link} index={index}/>)}
+        {this.state.links.map((link, index) => <Post key={link.id} link={link} index={index}/>)}
       </div>
     )
   }

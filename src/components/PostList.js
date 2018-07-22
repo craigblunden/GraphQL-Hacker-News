@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-
-import Link from './Link'
+import Post from './Post'
 
 import { LINKS_PER_PAGE } from '../constants'
 
-class LinkList extends Component {
+class PostList extends Component {
 
   componentDidMount() {
     this._subscribeToNewLinks()
@@ -31,7 +30,7 @@ class LinkList extends Component {
       <div className="container">
         <div className="row">
           {linksToRender.map((link, index) => (
-            <Link
+            <Post
               key={link.id}
               updateStoreAfterVote={this._updateCacheAfterVote}
               index={index}
@@ -198,4 +197,4 @@ export default graphql(FEED_QUERY, {
       variables: { first, skip, orderBy },
     }
   },
-})(LinkList)
+})(PostList)
