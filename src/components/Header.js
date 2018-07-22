@@ -29,16 +29,7 @@ class Header extends Component {
             
             {authToken ? (
               <li className="nav-item">
-                <a
-                  className="nav-link"
-                  onClick={() => {
-                    localStorage.removeItem(AUTH_TOKEN)
-                    localStorage.removeItem('email')
-                    this.props.history.push(`/`)
-                  }}
-                >
-                  logout
-                </a>
+                <Link to="/" className="nav-link" onClick={this._logout}>logout</Link>
               </li>
             ) : (
               <li className="nav-item">
@@ -50,6 +41,13 @@ class Header extends Component {
         </div>
       </div>
     )
+  }
+
+  _logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem(AUTH_TOKEN)
+    localStorage.removeItem('email')
+    this.props.history.push(`/`)
   }
 }
 

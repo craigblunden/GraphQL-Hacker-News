@@ -8,14 +8,16 @@ import { timeDifferenceForDate } from '../utils'
 class Link extends Component {
   state = {
     hasVote: false,
+    isLoggedIn: false,
   }
 
   componentDidMount = () => {
     this._hasVoted();
+    this._isLoggedIn();
   }
 
   render() {
-    const { hasVote } = this.state
+    const { hasVote, isLoggedIn } = this.state
     return (
       <div className="col col-12 col-sm-6 col-md-4">
         <div className="card mb-4">
@@ -36,7 +38,8 @@ class Link extends Component {
                 : 'Unknown'}{' '}
               {timeDifferenceForDate(this.props.link.createdAt)}
             </div>
-            {hasVote
+            {isLoggedIn && (
+              hasVote
               ? (
                   <button className="btn btn-primary" onClick={() => this._removeVoteForLink()}>
                     Down
@@ -47,15 +50,25 @@ class Link extends Component {
                   Up
                 </button>
                 )
-              }
+            )}
           </div>
         </div>
       </div>
     )
   }
 
-  _hasVoted = () => {
+  _isLoggedIn = () => {
     const authToken = localStorage.getItem(AUTH_TOKEN)
+    
+    if(authToken) {
+      this.setState({
+        "isLoggedIn": true
+      })
+    }
+  }
+
+  _hasVoted = () => {
+    
     const votes = this.props.link.votes
     const loggedinUserEmail = localStorage.getItem('email')
 
