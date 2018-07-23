@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-boost'
 import Post from './Post'
 
 class Search extends Component {

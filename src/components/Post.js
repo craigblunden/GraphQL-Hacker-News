@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import { gql } from 'apollo-boost'
 
 import { AUTH_TOKEN } from '../constants'
 import { timeDifferenceForDate } from '../utils'
