@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/craig-blunden-315eb8/hackernews/dev
-# timestamp: Sun Jul 15 2018 20:09:03 GMT+1000 (AEST)
+# timestamp: Tue Jul 24 2018 18:41:19 GMT+1000 (AEST)
 
 type AggregateLink {
   count: Int!

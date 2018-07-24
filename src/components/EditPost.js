@@ -43,10 +43,10 @@ class EditPost extends Component {
   }
 
 }
-console.log(this)
+
 const POST_QUERY = gql`
   query postQuery($ID: ID!) {
-    post(id: "cjjwqx70bzmek0b022dwd8qf1") {
+    link(id: "cjjwqx70bzmek0b022dwd8qf1") {
       id
       url
       description

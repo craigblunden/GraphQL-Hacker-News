@@ -29,6 +29,22 @@ async function feed(parent, args, context, info) {
   }
 }
 
+async function link(parent, args, context, info) {
+  console.log("link query!!!!")
+  return context.db.query.link (
+    { 
+      where: {
+        id: args.where.id 
+      }
+    },
+    `
+    { id, description, url }
+    `,
+    info
+  )
+}
+
 module.exports = {
   feed,
+  link
 }
