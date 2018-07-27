@@ -10,6 +10,19 @@ function post(parent, { url, description }, ctx, info) {
   )
 }
 
+function updateLink(_, args, ctx, info){
+  console.log(args)
+  return ctx.db.mutation.updateLink(
+    {
+      where: { id: args.where.id },
+      data: {
+        url: args.data.url, 
+        description: args.data.description
+      }
+    }
+  )
+}
+
 async function signup(parent, args, context, info) {
   
   const password = await bcrypt.hash(args.password, 10)
@@ -85,4 +98,5 @@ module.exports = {
     post,
     vote,
     deleteVote,
+    updateLink,
 }

@@ -19,6 +19,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote
   deleteVote(where: VoteWhereUniqueInput!): Vote
+  updateLink(data: LinkUpdateInput!, where: LinkWhereUniqueInput!): Link
 
 
   # # Update a link

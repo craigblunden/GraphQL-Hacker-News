@@ -16,9 +16,10 @@ class EditPost extends Component {
       return (
         <Query query={POST_QUERY} variables={{id}}>
           {({ loading, error, data }) => {
+
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
-            console.log(this.state)
+
             return (
               <div className="container">
                 <div className="row">
