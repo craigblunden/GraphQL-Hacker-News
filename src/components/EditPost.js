@@ -7,7 +7,8 @@ class EditPost extends Component {
   state = {
     description: '',
     url: '',
-    id: this.props.match.params.id
+    id: this.props.match.params.id,
+    updatedPost: false
   }
 
   render(){
@@ -47,6 +48,9 @@ class EditPost extends Component {
               />
             </div>
             <button type="submit" >Submit</button>
+            {this.state.updatedPost && (
+              <div>Success!</div>
+            )}
           </form>
         </div>
       </div>
@@ -56,8 +60,7 @@ class EditPost extends Component {
   _GetPost = async () => {
 
     const { id, description, url } = this.state
-
-    const post = await this.props.GetPostQuery({
+    await this.props.GetPostQuery({
       variables: {
         id,
         description,
@@ -68,14 +71,22 @@ class EditPost extends Component {
   _EditPost = async (e) => {
     e.preventDefault();
 
-    const { id, description, url } = this.state
-    const {propsUrl, propsDescription} = this.props.GetPostQuery.link
+    let { id, description, url } = this.state
+
+    url = url || this.props.GetPostQuery.link.url
+    description = description || this.props.GetPostQuery.link.description
+
     await this.props.editPostMutation({
       variables: {
         id,
-        url: url || propsUrl,
-        description: description || propsDescription
+        url,
+        description
       },
+      update: () => {
+        this.setState({
+          "updatedPost": true
+        })
+      }
     })
   }
 }
