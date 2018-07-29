@@ -22,7 +22,7 @@ class Post extends Component {
   render() {
     let { hasVote, isLoggedIn, isEditor } = this.state
     return (
-      <div className="col col-12 col-sm-6 col-md-4">
+      <div className="col col-12">
         <div className="card mb-4">
           <div className="card-body">
             <div className="card-title"><h3>{this.props.index + 1}.</h3></div>
@@ -41,22 +41,24 @@ class Post extends Component {
                 : 'Unknown'}{' '}
               {timeDifferenceForDate(this.props.link.createdAt)}
             </div>
-            {isLoggedIn && (
-              hasVote
-              ? (
-                  <button className="btn btn-primary" onClick={() => this._removeVoteForLink()}>
-                    Down
-                  </button>
-                )
-              : (
-                <button className="btn btn-warning" onClick={() => this._voteForLink()}>
-                  Up
-                </button>
-                )
-            )}
-            {isLoggedIn && isEditor && (
-              <Link to={'/edit/'+this.props.link.id} className="btn btn-success">Edit</Link>
-            )}
+            <div>
+              {isLoggedIn && (
+                hasVote
+                ? (
+                    <a role="button" className="btn btn-primary" onClick={() => this._removeVoteForLink()}>
+                      Down
+                    </a>
+                  )
+                : (
+                  <a role="button" className="btn btn-warning" onClick={() => this._voteForLink()}>
+                    Up
+                  </a>
+                  )
+              )}
+              {isLoggedIn && isEditor && (
+                <Link to={'/edit/'+this.props.link.id} className="btn btn-success">Edit</Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

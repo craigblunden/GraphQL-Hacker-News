@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { gql } from 'apollo-boost'
 import Post from './Post'
@@ -22,13 +23,22 @@ class PostList extends Component {
       return <div>Error: {this.props.feedQuery.error.message}</div>
     }
 
-    const isNewPage = this.props.location.pathname.includes('new')
+    // const isNewPage = this.props.location.pathname.includes('new')
+    const isNewPage = true
     const linksToRender = this._getLinksToRender(isNewPage)
-    const page = parseInt(this.props.match.params.page, 10)
+    // const page = parseInt(this.props.match.params.page, 10)
 
     return (
-      <div className="container">
-        <div className="row">
+      <div className="col col-sm-6">
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">new</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/top" className="nav-link">top</Link>
+          </li>
+        </ul>
+        <div className="">
           {linksToRender.map((link, index) => (
             <Post
               key={link.id}
@@ -51,8 +61,9 @@ class PostList extends Component {
   }
 
   _updateCacheAfterVote = (store, createVote, linkId) => {
-    const isNewPage = this.props.location.pathname.includes('new')
-    const page = parseInt(this.props.match.params.page, 10)
+    // const isNewPage = this.props.location.pathname.includes('new')
+    const isNewPage = true
+    const page = parseInt(this.props.match.params.page, 10) || 1
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null
@@ -188,8 +199,10 @@ export const FEED_QUERY = gql`
 export default graphql(FEED_QUERY, {
   name: 'feedQuery',
   options: ownProps => {
-    const page = parseInt(ownProps.match.params.page, 10)
-    const isNewPage = ownProps.location.pathname.includes('new')
+    let page = 1;
+    // ownProps.match.params.page ? page =  parseInt(ownProps.match.params.page, 10) : page = 1
+    // const isNewPage = ownProps.location.pathname.includes('new')
+    const isNewPage = true;
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null

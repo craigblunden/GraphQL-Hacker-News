@@ -7,36 +7,44 @@ class Header extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col col-12">
-            <h1>Hacker News</h1>
-            <ul className="nav">
-              <li className="nav-item">
-                <Link to="/" className="nav-link">new</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/top" className="nav-link">top</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/search" className="nav-link">search</Link>
-              </li>
-            {authToken && (
-              <li className="nav-item">
-                <Link to="/create" className="nav-link">submit</Link>
-              </li>
-            )}
-            
-            {authToken ? (
-              <li className="nav-item">
-                <Link to="/" className="nav-link" onClick={this._logout}>logout</Link>
-              </li>
-            ) : (
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">login</Link>
-              </li>
-            )}
-            </ul>
+      <div className="wrapper-header">
+        <div className="container">
+          <div className="row">
+            <div className="col col-12">
+              <div className="row">
+                <div className="col col-sm-2">
+                  <Link to="/"><h1>HN</h1></Link>
+                </div>
+                <div className="col col-sm-6">
+                  <form className="form-inline">
+                    <div class="form-group">
+                      <label className="sr-only" htmlFor="searchBar">Search</label>
+                      <input type="email" class="form-control" id="searchBar" aria-describedby="Search" placeholder="Graph QL" />
+                      <Link to="/search" className="nav-link">search</Link>
+                    </div>
+                  </form>
+                </div>
+                <div className="col col-sm-3">
+                  <ul className="nav">
+                  {authToken && (
+                    <li className="nav-item">
+                      <Link to="/create" className="nav-link">submit</Link>
+                    </li>
+                  )}
+                  
+                  {authToken ? (
+                    <li className="nav-item">
+                      <Link to="/" className="nav-link" onClick={this._logout}>logout</Link>
+                    </li>
+                  ) : (
+                    <li className="nav-item">
+                      <Link to="/login" className="nav-link">login</Link>
+                    </li>
+                  )}
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
