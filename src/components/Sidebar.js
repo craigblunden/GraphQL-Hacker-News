@@ -8,7 +8,7 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <div className="col col-sm-4">
+      <div className="col col-sm-3">
         <div className="card flex-row flex-wrap wrapper-account">
           <div className="card-header border-0">
             <img width="50px" src="/img/profile.jpeg" alt="profile" className="card-img-left rounded-circle" />

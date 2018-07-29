@@ -23,13 +23,12 @@ class PostList extends Component {
       return <div>Error: {this.props.feedQuery.error.message}</div>
     }
 
-    // const isNewPage = this.props.location.pathname.includes('new')
-    const isNewPage = true
-    const linksToRender = this._getLinksToRender(isNewPage)
-    // const page = parseInt(this.props.match.params.page, 10)
+    const isTopPage = this.props.location.pathname.includes('top')
+    const linksToRender = this._getLinksToRender(isTopPage)
+    const page = parseInt(this.props.match.params.page, 10) 
 
     return (
-      <div className="col col-sm-6">
+      <div className="col col-sm-5">
         <ul className="nav">
           <li className="nav-item">
             <Link to="/" className="nav-link">new</Link>
@@ -48,25 +47,22 @@ class PostList extends Component {
             />
           ))}
         </div>
-      {isNewPage &&
         <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className="page-item"><button className="page-link" onClick={() => this._previousPage()}>Previous</button></li>
             <li className="page-item"><button className="page-link" onClick={() => this._nextPage()}>Next</button></li>
           </ul>
         </nav>
-      }
     </div>
     )
   }
 
   _updateCacheAfterVote = (store, createVote, linkId) => {
-    // const isNewPage = this.props.location.pathname.includes('new')
-    const isNewPage = true
+    const isTopPage = this.props.location.pathname.includes('top')
     const page = parseInt(this.props.match.params.page, 10) || 1
-    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
-    const first = isNewPage ? LINKS_PER_PAGE : 100
-    const orderBy = isNewPage ? 'createdAt_DESC' : null
+    const skip = isTopPage ? 0 : (page - 1) * LINKS_PER_PAGE
+    const first = isTopPage ? 100 : LINKS_PER_PAGE
+    const orderBy = isTopPage ? null : 'createdAt_DESC'
     const data = store.readQuery({ query: FEED_QUERY, variables: { first, skip, orderBy } })
   
     const votedLink = data.feed.links.find(link => link.id === linkId)
@@ -144,18 +140,19 @@ class PostList extends Component {
     })
   }
 
-  _getLinksToRender = (isNewPage) => {
-    if (isNewPage) {
-      return this.props.feedQuery.feed.links
+  _getLinksToRender = (isTopPage) => {
+    if (isTopPage) {
+      const rankedLinks = this.props.feedQuery.feed.links.slice()
+      rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
+      return rankedLinks
     }
-    const rankedLinks = this.props.feedQuery.feed.links.slice()
-    rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length)
-    return rankedLinks
+    return this.props.feedQuery.feed.links
   }
 
   _nextPage = () => {
     const page = parseInt(this.props.match.params.page, 10)
     if (page <= this.props.feedQuery.feed.count / LINKS_PER_PAGE) {
+      console.log("next page")
       const nextPage = page + 1
       this.props.history.push(`/new/${nextPage}`)
     }
@@ -164,6 +161,7 @@ class PostList extends Component {
   _previousPage = () => {
     const page = parseInt(this.props.match.params.page, 10)
     if (page > 1) {
+      console.log("prev page")
       const previousPage = page - 1
       this.props.history.push(`/new/${previousPage}`)
     }

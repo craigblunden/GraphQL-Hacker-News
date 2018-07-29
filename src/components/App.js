@@ -14,15 +14,16 @@ class App extends Component {
     return (
       <div className="">
         <Header />
-        <div className="container">
+        <div className="container-fluid">
           <Switch>
-            <Route exact path='/' component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/create" component={CreatePost} />
             <Route path="/edit/:id" component={EditPost} />
             <Route exact path='/search' component={Search}/>
             <Route exact path='/top' component={PostList} />
-            <Route exact path='/new/:page' component={PostList} />
+            <Route exact path='/top/:page' component={PostList} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/:page' component={PostList} />
           </Switch>
         </div>
       </div>

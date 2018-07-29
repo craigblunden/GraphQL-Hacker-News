@@ -8,7 +8,7 @@ class Header extends Component {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
       <div className="wrapper-header">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col col-12">
               <div className="row">
