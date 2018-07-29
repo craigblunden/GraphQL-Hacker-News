@@ -27,3 +27,9 @@ body {
 .wrapper-header a {
   color: #fff;
 }
+
+/* Sidebar - Account  */
+
+.wrapper-account .card-header {
+  padding:0.75rem;
+}

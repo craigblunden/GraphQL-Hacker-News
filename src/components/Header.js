@@ -16,10 +16,10 @@ class Header extends Component {
                   <Link to="/"><h1>HN</h1></Link>
                 </div>
                 <div className="col col-sm-6">
-                  <form className="form-inline">
-                    <div class="form-group">
+                  <form className="form-inline" action="/search" method="get">
+                    <div className="form-group">
                       <label className="sr-only" htmlFor="searchBar">Search</label>
-                      <input type="email" class="form-control" id="searchBar" aria-describedby="Search" placeholder="Graph QL" />
+                      <input type="text" name="q" className="form-control" id="searchBar" aria-describedby="Search" placeholder="Graph QL" />
                       <Link to="/search" className="nav-link">search</Link>
                     </div>
                   </form>

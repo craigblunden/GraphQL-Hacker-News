@@ -8,10 +8,12 @@ export default class Sidebar extends Component {
 
   render() {
     return (
-      <div className="col col-sm-3">
-        <div className="card">
-          <img src="" alt="profile" className="card-img-left" />
-          <div className="card-body">
+      <div className="col col-sm-4">
+        <div className="card flex-row flex-wrap wrapper-account">
+          <div className="card-header border-0">
+            <img width="50px" src="/img/profile.jpeg" alt="profile" className="card-img-left rounded-circle" />
+          </div>
+          <div className="card-block px-2 py-1">
             <h4 className="card-title">Craig Blunden</h4>
             <div className="card-text">@craigblunden</div>
           </div>
