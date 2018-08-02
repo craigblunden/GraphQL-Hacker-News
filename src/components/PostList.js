@@ -23,9 +23,10 @@ class PostList extends Component {
       return <div>Error: {this.props.feedQuery.error.message}</div>
     }
 
-    const isTopPage = this.props.location.pathname.includes('top')
+    const isTopPage = this.props.hasOwnProperty('location') ? this.props.location.pathname.includes('top') : false
+    // const isTopPage = true
     const linksToRender = this._getLinksToRender(isTopPage)
-    const page = parseInt(this.props.match.params.page, 10) 
+    const page = this.props.hasOwnProperty('location') ? parseInt(this.props.match.params.page, 10) : 1
 
     return (
       <div className="col col-sm-5">
